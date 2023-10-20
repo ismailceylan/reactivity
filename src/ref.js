@@ -31,7 +31,7 @@ export default function ref( initial )
 			
 			for( const item of bindings )
 			{
-				item( newValue, oldValue );
+				item && item( newValue, oldValue );
 			}
 		}
 	});
@@ -40,7 +40,12 @@ export default function ref( initial )
 	{
 		value( callback )
 		{
-			bindings.push( callback );
+			const index = bindings.push( callback ) - 1;
+
+			return function unbind()
+			{
+				delete bindings[ index ]
+			}
 		}
 	});
 

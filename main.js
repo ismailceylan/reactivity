@@ -1,19 +1,13 @@
-import { ref, watchEffect } from "./src/index.js";
+import { ref } from "./src/index.js";
 
 const top = ref( 100 );
-const left = ref( 200 );
 
-watchEffect(() =>
-{
-	console.log( top.value, left.value );
-});
-// log => 100, 200
+const unbind = top.bind( console.log );
 
-top.value = 101;
-// log => 101, 200
+top.value++;
+// log => 101 100
 
-left.value = 202;
-// log => 101, 202
+unbind();
 
-top.value = 101;
-// shouldn't any log happen
+top.value = 102;
+// shouldn't log anything
