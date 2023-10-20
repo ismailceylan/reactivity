@@ -1,4 +1,9 @@
 export default function watch( source, callback )
 {
-	source.bind( callback );
+	const unbind = source.bind( callback );
+
+	return function stopWatch()
+	{
+		unbind();
+	}
 }
