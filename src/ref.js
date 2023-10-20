@@ -44,7 +44,7 @@ export default function ref( initial )
 
 			return function unbind()
 			{
-				delete bindings[ index ]
+				delete bindings[ index ];
 			}
 		}
 	});
