@@ -19,6 +19,11 @@ export default function ref( initial )
 
 		set( value )
 		{
+			if( initial === value )
+			{
+				return;
+			}
+			
 			for( const item of bindings )
 			{
 				item( value, initial );
