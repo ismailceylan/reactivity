@@ -21,7 +21,7 @@ export default function ref( initial )
 		{
 			for( const item of bindings )
 			{
-				item( initial, value );
+				item( value, initial );
 			}
 
 			initial = value;
