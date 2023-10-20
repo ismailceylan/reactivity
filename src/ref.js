@@ -2,7 +2,7 @@ import { deps } from "./dependencies.js";
 
 export default function ref( initial )
 {
-	const bindings = new Set;
+	const bindings = [];
 
 	const object =
 	{
@@ -40,7 +40,7 @@ export default function ref( initial )
 	{
 		value( callback )
 		{
-			bindings.add( callback );
+			bindings.push( callback );
 		}
 	});
 
