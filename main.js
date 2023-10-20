@@ -1,9 +1,12 @@
-import { ref } from "./src/index.js";
+import { dependencies, ref } from "./src/index.js";
 
-const xx = ref( "foo" );
+const top = ref( 100 );
+const left = ref( 200 );
 
-xx.bind( console.log );
+const deps = dependencies(() =>
+{
+	console.log( top.value, left.value );
+});
 
-xx.value = "bar";
-
-// log => foo, bar
+console.log( deps );
+// [ Ref<100>, Ref<200> ]

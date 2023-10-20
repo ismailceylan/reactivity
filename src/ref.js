@@ -1,7 +1,9 @@
+import { deps } from "./dependencies.js";
+
 export default function ref( initial )
 {
 	const bindings = [];
-	
+
 	const object =
 	{
 		__isRef: true
@@ -11,6 +13,7 @@ export default function ref( initial )
 	{
 		get()
 		{
+			deps.push( object );
 			return initial;
 		},
 
