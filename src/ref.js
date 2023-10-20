@@ -19,17 +19,20 @@ export default function ref( initial )
 
 		set( value )
 		{
-			if( initial === value )
+			const newValue = value;
+			const oldValue = initial;
+
+			if( oldValue === newValue )
 			{
 				return;
 			}
+
+			initial = newValue;
 			
 			for( const item of bindings )
 			{
-				item( value, initial );
+				item( newValue, oldValue );
 			}
-
-			initial = value;
 		}
 	});
 
