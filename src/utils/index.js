@@ -1,1 +1,1 @@
-export { default as useOnce } from "./use-once.js";
+export { default as once } from "./once.js";

@@ -1,9 +1,10 @@
 import { deps } from "./dependencies.js";
+import { once } from "./utils/index.js";
 
 export default function ref( initial )
 {
+	const snapshot = once();
 	const bindings = [];
-
 	const object =
 	{
 		__isRef: true
@@ -22,23 +23,20 @@ export default function ref( initial )
 			const newValue = value;
 			const oldValue = initial;
 
-			if( oldValue === newValue )
+			if( newValue === oldValue )
 			{
 				return;
 			}
 
 			initial = newValue;
-			
-			for( const item of bindings )
-			{
-				item && item( newValue, oldValue );
-			}
+
+			snapshot( newValue, oldValue, bindings );
 		}
 	});
 
 	Object.defineProperty( object, "bind",
 	{
-		value( callback )
+		value: callback =>
 		{
 			const index = bindings.push( callback ) - 1;
 

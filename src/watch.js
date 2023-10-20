@@ -1,10 +1,11 @@
-import { useOnce } from "./utils/index.js";
+import { once } from "./utils/index.js";
 
 export default function watch( source, callback )
 {
+	const snapshot = once();
+
 	if( Array.isArray( source ))
 	{
-		const once = useOnce();
 		const unbindStack = [];
 		let olds = source.map( ref => ref.value );
 		let news = [ ...olds ];
@@ -14,11 +15,7 @@ export default function watch( source, callback )
 			const unbind = ref.bind( value =>
 			{
 				news[ i ] = value;
-
-				once(() =>
-					callback( news, olds )
-				);
-
+				snapshot( news, olds, callback );
 				olds = [ ...news ];
 			});
 
