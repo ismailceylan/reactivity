@@ -2,10 +2,9 @@ import { once } from "./utils/index.js";
 
 export default function watch( source, callback )
 {
-	const snapshot = once();
-
 	if( Array.isArray( source ))
 	{
+		const queue = once();
 		const unbindStack = [];
 		let olds = source.map( ref => ref.value );
 		let news = [ ...olds ];
@@ -15,7 +14,7 @@ export default function watch( source, callback )
 			const unbind = ref.bind( value =>
 			{
 				news[ i ] = value;
-				snapshot( news, olds, callback );
+				queue( news, olds, callback );
 				olds = [ ...news ];
 			});
 

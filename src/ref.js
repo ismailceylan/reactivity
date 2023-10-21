@@ -3,7 +3,7 @@ import { once } from "./utils/index.js";
 
 export default function ref( initial )
 {
-	const snapshot = once();
+	const queue = once();
 	const bindings = [];
 	const object =
 	{
@@ -30,7 +30,7 @@ export default function ref( initial )
 
 			initial = newValue;
 
-			snapshot( newValue, oldValue, bindings );
+			queue( newValue, oldValue, bindings );
 		}
 	});
 
