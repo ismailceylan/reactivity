@@ -23,7 +23,7 @@ export default function ref( initial )
 			const newValue = value;
 			const oldValue = initial;
 
-			if( newValue === oldValue )
+			if( Object.is( newValue, oldValue ))
 			{
 				return;
 			}
