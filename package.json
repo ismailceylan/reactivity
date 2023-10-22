@@ -1,5 +1,5 @@
 {
-  "name": "reactivity",
+  "name": "vueish-reactivity",
   "version": "0.0.2",
   "description": "Vue.js similar lightweight reactivity library.",
   "main": "main.js",
