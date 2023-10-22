@@ -1,0 +1,25 @@
+{
+  "name": "reactivity",
+  "version": "0.0.2",
+  "description": "Vue.js similar lightweight reactivity library.",
+  "main": "main.js",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismailceylan/reactivity.git"
+  },
+  "keywords": [
+    "vue.js",
+    "reactive",
+    "react",
+    "reactivity"
+  ],
+  "author": "Ismail Ceylan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ismailceylan/reactivity/issues"
+  },
+  "homepage": "https://github.com/ismailceylan/reactivity#readme"
+}
