@@ -5,12 +5,7 @@ export default function watch( source, callback )
 {
 	if( isRef( source ) || isReactive( source ))
 	{
-		const unbind = source.bind( callback );
-	
-		return function unwatch()
-		{
-			unbind();
-		}
+		return source.bind( callback );
 	}
 	else if( Array.isArray( source ))
 	{
