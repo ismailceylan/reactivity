@@ -1,38 +1,35 @@
-import { ref, watch, nextTick } from "./src/index.js";
+import { ref, reactive, watchEffect } from "./src/index.js";
 
-const top = ref( 100 );
-const left = ref( 200 );
+const button = document.querySelector( "#increase" );
+const delLatest = document.querySelector( "#del-latest" );
+const delFirst = document.querySelector( "#del-first" );
+const empty = document.querySelector( "#empty" );
+const count = document.querySelector( "#count" );
+const content = document.querySelector( "#content" );
+const currentId = document.querySelector( "#curr-id" );
 
-const stop = watch([ top, left ], console.log );
+const id = ref( 0 );
+const books = reactive([]);
 
-top.value = 101;
-// shouldn't log anything
-top.value++;
-// shouldn't log anything
-top.value++;
-// shouldn't log anything
-left.value++;
-// shouldn't log anything
-
-console.log( "hello world!" );
-// should write at the top of the console
-
-nextTick(() =>
-	console.log( "goodbye world!" )
-);
-// should appear after watch triggered log
-
-setTimeout(() =>
+watchEffect(() =>
 {
-	top.value++; top.value++;
-	top.value++; top.value++;
-	left.value++;
-}, 2000 );
-// this is a timeout it just waits
+	content.innerText = JSON.stringify( books );
+	count.innerText = books.length;
+	currentId.innerText = id.value;
+});
 
-// event loop has not any immediate operations left behind
-// so microtasks should run at this point
-// log => [ 103, 201 ] [ 100, 200 ]
+button.addEventListener( "click", createBook );
+delLatest.addEventListener( "click", () => books.pop());
+delFirst.addEventListener( "click", () => books.shift());
+empty.addEventListener( "click", () => books.length = id.value = 0 );
 
-// after 2 seconds
-// log => [ 107, 202 ] [ 103, 201 ]
+function createBook()
+{
+	books.push(
+	{
+		id: id.value,
+		title: "Book " + ( id.value + 1)
+	});
+
+	id.value++
+}
