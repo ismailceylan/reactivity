@@ -1,4 +1,4 @@
-import { isReactive, isRef } from "./index.js";
+import { isReactive, isRef, unref } from "./index.js";
 import { once } from "./utils/index.js";
 
 export default function watch( source, callback )
@@ -11,11 +11,7 @@ export default function watch( source, callback )
 	{
 		const queue = once();
 		const unbindStack = [];
-		
-		let olds = source.map( ref =>
-			isRef( ref ) ? ref.value : ref
-		);
-
+		let olds = source.map( ref => unref( ref ));
 		let news = [ ...olds ];
 
 		source.forEach(( ref, i ) =>
