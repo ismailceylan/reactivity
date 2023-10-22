@@ -6,3 +6,4 @@ export { default as nextTick } from "./next-tick.js";
 export { default as isRef } from "./is-ref.js";
 export { default as reactive } from "./reactive.js";
 export { default as isReactive } from "./is-reactive.js";
+export { default as unref } from "./unref.js";

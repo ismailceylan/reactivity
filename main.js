@@ -1,4 +1,4 @@
-import { ref, reactive, watchEffect } from "./src/index.js";
+import { ref, reactive, watchEffect, unref } from "./src/index.js";
 
 const button = document.querySelector( "#increase" );
 const delLatest = document.querySelector( "#del-latest" );
@@ -15,7 +15,7 @@ watchEffect(() =>
 {
 	content.innerText = JSON.stringify( books );
 	count.innerText = books.length;
-	currentId.innerText = id.value;
+	currentId.innerText = unref( id.value );
 });
 
 button.addEventListener( "click", createBook );
@@ -25,10 +25,12 @@ empty.addEventListener( "click", () => books.length = id.value = 0 );
 
 function createBook()
 {
+	const book_id = unref( id );
+
 	books.push(
 	{
-		id: id.value,
-		title: "Book " + ( id.value + 1)
+		book_id,
+		title: "Book " + ( book_id + 1)
 	});
 
 	id.value++
