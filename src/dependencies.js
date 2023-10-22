@@ -1,11 +1,11 @@
-export const deps = [];
+export const deps = new Set;
 
 export default function dependencies( effects )
 {
 	// we should make sure deps stack is empty
-	deps.length = 0;
+	deps.clear();
 
 	effects();
 
-	return deps;
+	return [ ...deps ];
 }

@@ -14,7 +14,7 @@ export default function ref( initial )
 	{
 		get()
 		{
-			deps.push( object );
+			deps.add( object );
 			return initial;
 		},
 
