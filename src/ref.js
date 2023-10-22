@@ -7,8 +7,13 @@ export default function ref( initial )
 	const bindings = [];
 	const object =
 	{
-		__isRef: true
+		__isRef: true,
 	}
+
+	Object.defineProperty( object, Symbol.toStringTag,
+	{
+		value: "Ref"
+	});
 
 	Object.defineProperty( object, "value",
 	{
