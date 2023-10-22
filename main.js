@@ -15,7 +15,7 @@ watchEffect(() =>
 {
 	content.innerText = JSON.stringify( books );
 	count.innerText = books.length;
-	currentId.innerText = unref( id.value );
+	currentId.innerText = unref( id );
 });
 
 button.addEventListener( "click", createBook );
