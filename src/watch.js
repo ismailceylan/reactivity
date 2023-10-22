@@ -18,16 +18,8 @@ export default function watch( source, callback )
 		const unbindStack = [];
 		
 		let olds = source.map( ref =>
-		{
-			if( isRef( ref ))
-			{
-				return ref.value;
-			}
-			else if( isReactive( ref ))
-			{
-				return ref;
-			}
-		});
+			isRef( ref ) ? ref.value : ref
+		);
 
 		let news = [ ...olds ];
 
