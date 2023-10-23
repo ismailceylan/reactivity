@@ -1,4 +1,6 @@
 export default function isRef( value )
 {
-	return Object.prototype.toString.call( value ) == "[object Ref]";
+	const type = Object.prototype.toString.call( value );
+
+	return type == "[object Ref]" || type == "[object Computed]";
 }

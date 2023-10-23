@@ -7,3 +7,4 @@ export { default as isRef } from "./is-ref.js";
 export { default as reactive } from "./reactive.js";
 export { default as isReactive } from "./is-reactive.js";
 export { default as unref } from "./unref.js";
+export { default as computed } from "./computed.js";
