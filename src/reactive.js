@@ -1,21 +1,11 @@
 import { deps } from "./dependencies.js";
-import { once } from "./utils/index.js";
+import { once, bind } from "./utils/index.js";
 import { symIsReactiveTag, symBindMethodTag } from "./symbols.js";
 
 export default function reactive( initial )
 {
 	const queue = once();
-	const bindings = [];
-
-	function bind( callback )
-	{
-		const index = bindings.push( callback ) - 1;
-
-		return function unbind()
-		{
-			delete bindings[ index ];
-		}
-	}
+	const { bindings, binder } = bind();
 
 	return new Proxy( initial,
 	{
@@ -28,7 +18,7 @@ export default function reactive( initial )
 
 			if( key === symBindMethodTag )
 			{
-				return bind;
+				return binder;
 			}
 
 			deps.add( proxy );

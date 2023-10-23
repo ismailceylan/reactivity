@@ -1,30 +1,17 @@
 import { default as dependencies, deps } from "./dependencies.js";
+import { once, tag, bindable } from "./utils/index.js";
 import { symBindMethodTag } from "./symbols.js";
-import { once, tag } from "./utils/index.js";
 
 export default function computed( callback )
 {
 	const object = { __isRef: true, __isComputed: true }
-	const bindings = [];
+	const { bindings } = bindable( object );
 	const queue = once();
 	let invoked = false;
 	let dirty = false;
 	let latestValue = null;
 
 	tag( object, "Computed" );
-
-	Object.defineProperty( object, symBindMethodTag,
-	{
-		value: callback =>
-		{
-			const index = bindings.push( callback ) - 1;
-
-			return function unbind()
-			{
-				delete bindings[ index ];
-			}
-		}
-	});
 
 	Object.defineProperty( object, "value",
 	{
