@@ -1,12 +1,12 @@
-import dependencies from "./dependencies.js";
+import { dependencies } from "./index.js";
 import { symBindMethodTag } from "./symbols.js";
 
 export default function watchEffect( effects )
 {
 	const unbindStack = [];
-	const deps = dependencies( effects );
+	const { refs } = dependencies( effects );
 
-	for( const ref of deps )
+	for( const ref of refs )
 	{
 		unbindStack.push(
 			ref[ symBindMethodTag ]( effects )
