@@ -1,6 +1,6 @@
 import { isReactive, isRef, unref } from "./index.js";
-import { once } from "./utils/index.js";
 import { symBindMethodTag } from "./symbols.js";
+import { once } from "./utils/index.js";
 
 export default function watch( source, callback )
 {
