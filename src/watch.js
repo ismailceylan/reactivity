@@ -1,11 +1,12 @@
 import { isReactive, isRef, unref } from "./index.js";
 import { once } from "./utils/index.js";
+import { symBindMethodTag } from "./symbols.js";
 
 export default function watch( source, callback )
 {
 	if( isRef( source ) || isReactive( source ))
 	{
-		return source.bind( callback );
+		return source[ symBindMethodTag ]( callback );
 	}
 	else if( Array.isArray( source ))
 	{
@@ -21,7 +22,7 @@ export default function watch( source, callback )
 				return;
 			}
 
-			const unbind = ref.bind( value =>
+			const unbind = ref[ symBindMethodTag ]( value =>
 			{
 				news[ i ] = value;
 				queue( news, olds, callback );

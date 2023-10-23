@@ -1,5 +1,6 @@
 import { deps } from "./dependencies.js";
 import { once } from "./utils/index.js";
+import { symBindMethodTag } from "./symbols.js";
 
 export default function ref( initial )
 {
@@ -13,6 +14,19 @@ export default function ref( initial )
 	Object.defineProperty( object, Symbol.toStringTag,
 	{
 		value: "Ref"
+	});
+
+	Object.defineProperty( object, symBindMethodTag,
+	{
+		value: callback =>
+		{
+			const index = bindings.push( callback ) - 1;
+
+			return function unbind()
+			{
+				delete bindings[ index ];
+			}
+		}
 	});
 
 	Object.defineProperty( object, "value",
@@ -36,19 +50,6 @@ export default function ref( initial )
 			initial = newValue;
 
 			queue( newValue, oldValue, bindings );
-		}
-	});
-
-	Object.defineProperty( object, "bind",
-	{
-		value: callback =>
-		{
-			const index = bindings.push( callback ) - 1;
-
-			return function unbind()
-			{
-				delete bindings[ index ];
-			}
 		}
 	});
 

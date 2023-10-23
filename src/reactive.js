@@ -1,6 +1,6 @@
 import { deps } from "./dependencies.js";
 import { once } from "./utils/index.js";
-import { symIsReactiveTag } from "./symbols.js";
+import { symIsReactiveTag, symBindMethodTag } from "./symbols.js";
 
 export default function reactive( initial )
 {
@@ -26,7 +26,7 @@ export default function reactive( initial )
 				return true;
 			}
 
-			if( key === "bind" )
+			if( key === symBindMethodTag )
 			{
 				return bind;
 			}
