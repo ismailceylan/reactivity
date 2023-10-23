@@ -1,6 +1,6 @@
 import { default as dependencies, deps } from "./dependencies.js";
 import { symBindMethodTag } from "./symbols.js";
-import { once } from "./utils/index.js";
+import { once, tag } from "./utils/index.js";
 
 export default function computed( callback )
 {
@@ -11,10 +11,7 @@ export default function computed( callback )
 	let dirty = false;
 	let latestValue = null;
 
-	Object.defineProperty( object, Symbol.toStringTag,
-	{
-		value: "Computed"
-	});
+	tag( object, "Computed" );
 
 	Object.defineProperty( object, symBindMethodTag,
 	{

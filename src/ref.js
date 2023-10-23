@@ -1,5 +1,5 @@
 import { deps } from "./dependencies.js";
-import { once } from "./utils/index.js";
+import { once, tag } from "./utils/index.js";
 import { symBindMethodTag } from "./symbols.js";
 
 export default function ref( initial )
@@ -11,10 +11,7 @@ export default function ref( initial )
 		__isRef: true,
 	}
 
-	Object.defineProperty( object, Symbol.toStringTag,
-	{
-		value: "Ref"
-	});
+	tag( object, "Ref" );
 
 	Object.defineProperty( object, symBindMethodTag,
 	{
