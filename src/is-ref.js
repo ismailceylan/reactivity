@@ -1,6 +1,7 @@
+import { type } from "./utils/index.js";
+
 export default function isRef( value )
 {
-	const type = Object.prototype.toString.call( value );
-
-	return type == "[object Ref]" || type == "[object Computed]";
+	const tag = type( value );
+	return tag == "[object Ref]" || tag == "[object Computed]";
 }
