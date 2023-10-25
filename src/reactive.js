@@ -1,5 +1,5 @@
 import { deps } from "./dependencies.js";
-import { once, bind } from "./utils/index.js";
+import { once, bind, isProxyable } from "./utils/index.js";
 import { symIsReactiveTag, symBindMethodTag } from "./symbols.js";
 
 export default function reactive( initial )
@@ -27,6 +27,11 @@ export default function reactive( initial )
 
 		set( target, key, value, proxy )
 		{
+			if( isProxyable( value ))
+			{
+				value = reactive( value );
+			}
+			
 			target[ key ] = value;
 
 			queue( proxy, proxy, bindings );
