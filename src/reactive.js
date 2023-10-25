@@ -1,7 +1,8 @@
 import { deps } from "./dependencies.js";
-import { once, bind, isProxyable, resource } from "./utils/index.js";
+import { once, bind, resource } from "./utils/index.js";
 import { symIsReactiveTag, symBindMethodTag } from "./symbols.js";
 import { watch } from "./index.js";
+import { isProxyable } from "./utils/type/index.js";
 
 export default function reactive( initial )
 {

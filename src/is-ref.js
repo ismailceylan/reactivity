@@ -1,4 +1,4 @@
-import { type } from "./utils/index.js";
+import { default as type } from "./utils/type/index.js";
 
 export default function isRef( value )
 {

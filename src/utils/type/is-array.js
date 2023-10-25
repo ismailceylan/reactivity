@@ -1,4 +1,4 @@
-import { type } from "./index.js";
+import { default as type } from "./index.js";
 
 export default function isArray( value )
 {
