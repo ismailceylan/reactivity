@@ -1,9 +1,10 @@
 import { default as dependencies, deps } from "./dependencies.js";
-import { once, tag, bindable } from "./utils/index.js";
+import { once, tag, bindable, resource } from "./utils/index.js";
 import { symBindMethodTag } from "./symbols.js";
 
 export default function computed( callback )
 {
+	const id = resource();
 	const object = { __isRef: true, __isComputed: true }
 	const { bindings } = bindable( object );
 	const queue = once();
@@ -31,7 +32,7 @@ export default function computed( callback )
 				}
 
 				invoked = true;
-				queue( returnValue, latestValue, bindings );
+				queue( "computed:" + id, returnValue, latestValue, bindings );
 				latestValue = returnValue;
 			}
 			else if( dirty )
@@ -39,7 +40,7 @@ export default function computed( callback )
 				const returnValue = callback();
 
 				dirty = false;
-				queue( returnValue, latestValue, bindings );
+				queue( "computed:" + id, returnValue, latestValue, bindings );
 				latestValue = returnValue;
 			}
 

@@ -1,8 +1,9 @@
 import { deps } from "./dependencies.js";
-import { once, tag, bindable } from "./utils/index.js";
+import { once, tag, bindable, resource } from "./utils/index.js";
 
 export default function ref( initial )
 {
+	const id = resource();
 	const queue = once();
 	const object = { __isRef: true }
 	const { bindings } = bindable( object );
@@ -29,7 +30,7 @@ export default function ref( initial )
 
 			initial = newValue;
 
-			queue( newValue, oldValue, bindings );
+			queue( "ref:" + id, newValue, oldValue, bindings );
 		}
 	});
 
