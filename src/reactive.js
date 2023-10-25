@@ -34,9 +34,7 @@ export default function reactive( initial )
 				return true;
 			}
 
-			let proxyable = isProxyable( value );
-
-			if( proxyable )
+			if( isProxyable( value ))
 			{
 				value = reactive( value );
 
