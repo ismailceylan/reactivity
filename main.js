@@ -1,4 +1,4 @@
-import { ref, reactive, watchEffect, unref, computed, watch } from "./src/index.js";
+import { ref, reactive, nextTick, watchEffect, unref, computed, watch } from "./src/index.js";
 
 const button = document.querySelector( "#increase" );
 const delLatest = document.querySelector( "#del-latest" );
@@ -26,7 +26,6 @@ const taxPrice = computed(() =>
 );
 
 watch( totalPrice, price =>
-
 	priceRow.setAttribute(
 		"style",
 		price > 1000
@@ -60,6 +59,14 @@ function createBook()
 		price: Math.round( Math.random() * 249 ),
 		title: "Book " + ( book_id + 1)
 	});
+
+	// book is already reactive
+	const latest = books[ books.length - 1 ];
+
+	setTimeout(() =>
+		latest.price += Math.round( Math.random() * latest.price )
+		, 5000
+	);
 
 	id.value++
 }
