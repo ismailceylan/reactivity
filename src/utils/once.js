@@ -1,6 +1,10 @@
+import { callback } from "./index.js";
+
+const stack = new Map;
+const latest = new Map;
+
 export default function once()
 {
-	const stack = [];
 	let isMounted = false;
 
 	function mount()
@@ -13,10 +17,23 @@ export default function once()
 		queueMicrotask( handleStack );
 		isMounted = true;
 	}
-	
-	function queue( val, old, bindings )
+
+	function queue( resource, val, old, bindings )
 	{
-		stack.push([ val, old, bindings ]);
+		for( const cb of bindings )
+		{
+			// we should create resource (ref,reactive,computed) specific identifier
+			const name = [ resource, callback( cb )].join( "|" );
+
+			if( stack.has( name ))
+			{
+				stack.set( name, [ cb, val, stack.get( name )[ 1 ]]);
+			}
+			else
+			{
+				stack.set( name, [ cb, val, old ]);
+			}
+		}
 
 		if( ! isMounted )
 		{
@@ -26,19 +43,33 @@ export default function once()
 
 	function handleStack()
 	{
-		const first = stack.shift();
-		const last = stack.pop() || first;
+		// we have a lot of callbacks and we are
+		// sure we should call'em just once with
+		// latest state of their refs
 
-		const bindings = Array.isArray( first[ 2 ])
-			?   first[ 2 ]
-			: [ first[ 2 ]];
-
-		for( const cb of bindings )
+		for( const [ name, [ cb, newValue, oldValue ]] of stack )
 		{
-			cb && cb( last[ 0 ], first[ 1 ]);
+			if( latest.has( name ))
+			{
+				const [ _cb, latestNewValue, latestOldValue ] = latest.get( name );
+
+				if( newValue === latestNewValue && oldValue === latestOldValue )
+				{
+					continue;
+				}
+			}
+
+			cb && cb( newValue, oldValue );
 		}
 
-		stack.length = 0;
+		latest.clear();
+
+		for( const [ key, value ] of stack )
+		{
+			latest.set( key, value );
+			stack.delete( key );
+		}
+
 		isMounted = false;
 	}
 
