@@ -1,6 +1,6 @@
 {
   "name": "vueish-reactivity",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Vue.js similar lightweight reactivity library.",
   "main": "main.js",
   "scripts": {

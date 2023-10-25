@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/ismailceylan/reactivity/compare/v0.0.2...v0.0.3) (2023-10-25)
+
+
+### Features
+
+* deep reactives ([e177bf6](https://github.com/ismailceylan/reactivity/commit/e177bf6e13ed067f205dcbc7ca3060a27d0738a5))
+* new computed method ([573533c](https://github.com/ismailceylan/reactivity/commit/573533c00190ec91efd6cc001736240b38b9dbb2))
+
 ### 0.0.2 (2023-10-22)
 
 
