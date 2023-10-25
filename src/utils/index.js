@@ -4,3 +4,4 @@ export { default as bind } from "./bind.js";
 export { default as bindable } from "./bindable.js";
 export { default as type } from "./type.js";
 export { default as isObject } from "./is-object.js";
+export { default as isArray } from "./is-array.js";
