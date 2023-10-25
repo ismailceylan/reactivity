@@ -1,6 +1,7 @@
 import { deps } from "./dependencies.js";
 import { once, bind, isProxyable, resource } from "./utils/index.js";
 import { symIsReactiveTag, symBindMethodTag } from "./symbols.js";
+import { watch } from "./index.js";
 
 export default function reactive( initial )
 {
@@ -28,11 +29,22 @@ export default function reactive( initial )
 
 		set( target, key, value, proxy )
 		{
-			if( isProxyable( value ))
+			if( Object.is( value, target[ key ]))
+			{
+				return true;
+			}
+
+			let proxyable = isProxyable( value );
+
+			if( proxyable )
 			{
 				value = reactive( value );
+
+				watch( value, () =>
+					queue( "reactive:" + id, proxy, proxy, bindings )
+				);
 			}
-			
+
 			target[ key ] = value;
 
 			queue( "reactive:" + id, proxy, proxy, bindings );
