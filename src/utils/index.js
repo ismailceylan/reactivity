@@ -8,3 +8,4 @@ export { default as isArray } from "./is-array.js";
 export { default as isMap } from "./is-map.js";
 export { default as isProxyable } from "./is-proxyable.js";
 export { default as resource } from "./resource.js";
+export { default as callback } from "./callback.js";
