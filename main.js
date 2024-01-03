@@ -65,7 +65,7 @@ function createBook()
 
 	setTimeout(() =>
 		latest.price += Math.round( Math.random() * latest.price )
-		, 5000
+		, 2000
 	);
 
 	id.value++
